@@ -1,5 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("PostgreSQL");
+builder.Services.AddDBContext<ApiUniversidadeContext>(options.UserNpgsql(connectionString));
+
 // Add services to the container.
 
 builder.Services.AddControllers();
