@@ -5,6 +5,22 @@ using System.Threading.Tasks;
 using apiUniversidade2.Model;
 using Microsoft.AspNetCore.Mvc;
 
+namespace apiUniversidade2.Controllers;
+
+    [ApiController]
+    [Route("api/[controller]")]
+    public class CursoController : ControllerBase
+    {
+        private readonly Ilogger<CursoController> _logger;
+
+        private readonly apiUniversidadeContext _context;
+
+        public CursoController(Ilogger<CursoController> logger, ApiUniversidadeContext context)
+        {
+                _logger = logger;
+                _context = context;
+        }
+
       {HttpGet}
        public ActionResult<IEnurable<Curso>> Get()
         {
@@ -15,3 +31,8 @@ using Microsoft.AspNetCore.Mvc;
                 return cursos;
         
         }
+
+
+        
+    }
+
