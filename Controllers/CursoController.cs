@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using apiUniversidade2.Model;
+using ApiUniversidade.Model;
 using ApiUniversidade.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace apiUniversidade2.Controllers;
+namespace ApiUniversidade.Controllers;
 
     [ApiController]
     [Route("api/[controller]")]
@@ -53,6 +53,33 @@ namespace apiUniversidade2.Controllers;
                     new{ id = curso.Id},
                     curso);
         }
+
+        [HttpPut("(id:int)")]
+        public ActionResult Put(int id, Curso curso){
+            if(id != curso.Id)
+                return BadRequest();
+
+            _context.Entry(curso).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return Ok(curso);
+        }
+
+        [HttpDelete("(id:int)")]
+        public ActionResult Delete(int id){
+            var curso = _context.Cursos.FirstOrDefault(p=> p.Id == id);
+
+            if(curso is null)
+                return NotFound();
+
+            _context.Cursos.Remove(curso);
+            _context.SaveChanges();
+
+            return Ok(curso);
+        }
+        
+
+
 
     }
 

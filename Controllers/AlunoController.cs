@@ -1,57 +1,85 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using apiUniversidade2.Model;
+using ApiUniversidade.Model;
+using ApiUniversidade.Context;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
+namespace ApiUniversidade.Controllers;
 
-
-namespace apiUniversidade2.Controllers
-{
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AlunoController : ControllerBase
     {
+        private readonly Ilogger<AlunoController> _logger;
+
+        private readonly ApiUniversidadeContext _context;
+
+        public AlunoController(Ilogger<AlunoController> logger, ApiUniversidadeContext context)
+        {
+                _logger = logger;
+                _context = context;
+        }
+
+        [HttpGet]
+       public ActionResult<IEnurable<Aluno>> Get()
+        {
+                var alunos = context.Alunos.ToList();
+                if(alunos is null)
+                return NotFound();
+
+                return alunos;
         
-   [HttpGet (Name = "alunos")]
+        }
 
-    public List<Aluno> GetAluno()
-    {
-        List<Aluno> alunos = new List<Aluno>();
+        [HttpGet ("(id:int)", Name="GetAluno")]
+        public ActionResult<Aluno> Get(int id)
+        {
+            var aluno = _context.Alunos.FirstOrDefault(p => p.Id == id);
+                if(aluno is null)
+                    return NotFound("Aluno não encontrado.");
 
-        Aluno a1 = new Aluno();
-            a1.Id= 20201031;
-            a1.Nome= "Morgana";
-            a1.Area= "Informatica";
-            a1.DataDeNascimento= "8/8/1989";
-            a1.CPF= "99999";
-        Aluno a2 = new Aluno();
-            a2.Id= 20201031;
-            a2.Nome= "Morgana";
-            a2.Area= "Informatica";
-            a2.DataDeNascimento= "8/8/1989";
-            a2.CPF= "99999";
-        Aluno a3 = new Aluno();
-            a3.Id= 20201031;
-            a3.Nome= "Morgana";
-            a3.Area= "Informatica";
-            a3.DataDeNascimento= "8/8/1989";
-            a3.CPF= "99999";
+                return aluno;
+        }
+        
+        [HttpPost]
+        public ActionResult Post(Aluno aluno){
+                _context.Alunos.Add(aluno);
+                _context.SaveChanges();
+
+                return new CreatedAtRouteResult("GetAluno",
+                    new{ id = aluno.Id},
+                    aluno);
+        }
+
+        [HttpPut("(id:int)")]
+        public ActionResult Put(int id, Aluno aluno){
+            if(id != aluno.Id)
+                return BadRequest();
+
+            _context.Entry(aluno).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return Ok(aluno);
+        }
+
+        [HttpDelete("(id:int)")]
+        public ActionResult Delete(int id){
+            var aluno = _context.Alunos.FirstOrDefault(p=> p.Id == id);
+
+            if(aluno is null)
+                return NotFound();
+
+            _context.Alunos.Remove(aluno);
+            _context.SaveChanges();
+
+            return Ok(aluno);
+        }
+        
 
 
-            alunos.Add(a1);
-            alunos.Add(a2);
-            alunos.Add(a3);
-
-            return alunos;
 
     }
 
-
-
- 
-    
-}}
-   
