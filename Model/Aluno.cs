@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace apiUniversidade2.Model
+namespace ApiUniversidade.Model
 {
     public class Aluno
     {

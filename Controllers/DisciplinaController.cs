@@ -13,20 +13,20 @@ namespace ApiUniversidade.Controllers;
     [Route("api/[controller]")]
     public class DisciplinaController : ControllerBase
     {
-        private readonly Ilogger<DisciplinaController> _logger;
+        private readonly ILogger<DisciplinaController> _logger;
 
         private readonly ApiUniversidadeContext _context;
 
-        public DisciplinaController(Ilogger<DisciplinaController> logger, ApiUniversidadeContext context)
+        public DisciplinaController(ILogger<DisciplinaController> logger, ApiUniversidadeContext context)
         {
                 _logger = logger;
                 _context = context;
         }
 
         [HttpGet]
-       public ActionResult<IEnurable<Disciplina>> Get()
+       public ActionResult<IEnumerable<Disciplina>> Get()
         {
-                var disciplinas = context.Disciplinas.ToList();
+                var disciplinas = _context.Disciplinas.ToList();
                 if(disciplinas is null)
                 return NotFound();
 
@@ -45,7 +45,7 @@ namespace ApiUniversidade.Controllers;
         }
         
         [HttpPost]
-        public ActionResult Post(Discplina disciplina){
+        public ActionResult Post(Disciplina disciplina){
                 _context.Disciplinas.Add(disciplina);
                 _context.SaveChanges();
 
@@ -55,7 +55,7 @@ namespace ApiUniversidade.Controllers;
         }
 
         [HttpPut("(id:int)")]
-        public ActionResult Put(int id, Discilpina disciplina){
+        public ActionResult Put(int id, Disciplina disciplina){
             if(id != disciplina.Id)
                 return BadRequest();
 

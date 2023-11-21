@@ -13,20 +13,20 @@ namespace ApiUniversidade.Controllers;
     [Route("api/[controller]")]
     public class AlunoController : ControllerBase
     {
-        private readonly Ilogger<AlunoController> _logger;
+        private readonly ILogger<AlunoController> _logger;
 
         private readonly ApiUniversidadeContext _context;
 
-        public AlunoController(Ilogger<AlunoController> logger, ApiUniversidadeContext context)
+        public AlunoController(ILogger<AlunoController> logger, ApiUniversidadeContext context)
         {
                 _logger = logger;
                 _context = context;
         }
 
         [HttpGet]
-       public ActionResult<IEnurable<Aluno>> Get()
+       public ActionResult<IEnumerable<Aluno>> Get()
         {
-                var alunos = context.Alunos.ToList();
+                var alunos = _context.Alunos.ToList();
                 if(alunos is null)
                 return NotFound();
 

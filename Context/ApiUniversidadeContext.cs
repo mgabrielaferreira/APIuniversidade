@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using apiUniversidade2.Model;
+using ApiUniversidade.Model;
+using ApiUniversidade.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace apiUniversidade2.DbContext
+namespace ApiUniversidade.Context
 {
     public class ApiUniversidadeContext: DbContext
     {

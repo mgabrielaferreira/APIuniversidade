@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "apiUniversidade2", "apiUniversidade2.csproj", "{05FE4987-EC31-47F5-8325-0FAA98F291B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "apiUniversidade", "apiUniversidade.csproj", "{05FE4987-EC31-47F5-8325-0FAA98F291B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
