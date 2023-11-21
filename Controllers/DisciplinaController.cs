@@ -34,7 +34,7 @@ namespace ApiUniversidade.Controllers;
         
         }
 
-        [HttpGet ("(id:int)", Name="GetDisciplina")]
+        [HttpGet ("{id:int}", Name="GetDisciplina")]
         public ActionResult<Disciplina> Get(int id)
         {
             var disciplina = _context.Disciplinas.FirstOrDefault(p => p.Id == id);
@@ -54,7 +54,7 @@ namespace ApiUniversidade.Controllers;
                     disciplina);
         }
 
-        [HttpPut("(id:int)")]
+        [HttpPut("{id:int}")]
         public ActionResult Put(int id, Disciplina disciplina){
             if(id != disciplina.Id)
                 return BadRequest();
@@ -65,7 +65,7 @@ namespace ApiUniversidade.Controllers;
             return Ok(disciplina);
         }
 
-        [HttpDelete("(id:int)")]
+        [HttpDelete("{id:int}")]
         public ActionResult Delete(int id){
             var disciplina = _context.Disciplinas.FirstOrDefault(p=> p.Id == id);
 

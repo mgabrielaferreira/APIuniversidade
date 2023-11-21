@@ -34,7 +34,7 @@ namespace ApiUniversidade.Controllers;
         
         }
 
-        [HttpGet ("(id:int)", Name="GetAluno")]
+        [HttpGet ("{id:int}", Name="GetAluno")]
         public ActionResult<Aluno> Get(int id)
         {
             var aluno = _context.Alunos.FirstOrDefault(p => p.Id == id);
@@ -54,7 +54,7 @@ namespace ApiUniversidade.Controllers;
                     aluno);
         }
 
-        [HttpPut("(id:int)")]
+        [HttpPut("{id:int}")]
         public ActionResult Put(int id, Aluno aluno){
             if(id != aluno.Id)
                 return BadRequest();
@@ -65,7 +65,7 @@ namespace ApiUniversidade.Controllers;
             return Ok(aluno);
         }
 
-        [HttpDelete("(id:int)")]
+        [HttpDelete("{id:int}")]
         public ActionResult Delete(int id){
             var aluno = _context.Alunos.FirstOrDefault(p=> p.Id == id);
 
