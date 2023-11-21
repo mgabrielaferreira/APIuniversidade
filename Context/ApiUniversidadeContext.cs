@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using apiUniversidade2.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace apiUniversidade2.Contex
+namespace apiUniversidade2.DbContext
 {
-    public class ApiUniversidadeContex: DbContext
+    public class ApiUniversidadeContext: DbContext
     {
 
-        public ApiUniversidadeContex(DbContextOptions options) : base(options) {}
+        public ApiUniversidadeContext(DbContextOptions options) : base(options) {}
         public DbSet<Aluno> Alunos {get; set; }
 
         public DbSet<Curso> Cursos {get; set; }

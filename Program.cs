@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using ApiUniversidade.Context;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("PostgreSQL");

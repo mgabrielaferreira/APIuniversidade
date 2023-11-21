@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using apiUniversidade2.Model;
+using ApiUniversidade.Context;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace apiUniversidade2.Controllers;
 
@@ -13,7 +15,7 @@ namespace apiUniversidade2.Controllers;
     {
         private readonly Ilogger<CursoController> _logger;
 
-        private readonly apiUniversidadeContext _context;
+        private readonly ApiUniversidadeContext _context;
 
         public CursoController(Ilogger<CursoController> logger, ApiUniversidadeContext context)
         {
@@ -21,7 +23,7 @@ namespace apiUniversidade2.Controllers;
                 _context = context;
         }
 
-      {HttpGet}
+        [HttpGet]
        public ActionResult<IEnurable<Curso>> Get()
         {
                 var cursos = context.Cursos.ToList();
@@ -32,7 +34,25 @@ namespace apiUniversidade2.Controllers;
         
         }
 
+        [HttpGet ("(id:int)", Name="GetCurso")]
+        public ActionResult<Curso> Get(int id)
+        {
+            var curso = _context.Cursos.FirstOrDefault(p => p.Id == id);
+                if(curso is null)
+                    return NotFound("Curso não encontrado.");
 
+                return curso;
+        }
         
+        [HttpPost]
+        public ActionResult Post(Curso curso){
+                _context.Cursos.Add(curso);
+                _context.SaveChanges();
+
+                return new CreatedAtRouteResult("GetCurso",
+                    new{ id = curso.Id},
+                    curso);
+        }
+
     }
 
