@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using ApiUniversidade.Model;
 using ApiUniversidade.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace ApiUniversidade.Context
-{
-    public class ApiUniversidadeContext: DbContext
+namespace ApiUniversidade.Context;
+
+    public class ApiUniversidadeContext: IdentityDbContext
     {
 
         public ApiUniversidadeContext(DbContextOptions options) : base(options) {}
@@ -27,4 +28,3 @@ namespace ApiUniversidade.Context
 
 
     }
-}
