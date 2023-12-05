@@ -37,7 +37,7 @@ namespace ApiUniversidade.Controllers
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
-                if(result.Succeeded)
+                if(!result.Succeeded)
                     return BadRequest(result.Errors);
                 
                 await _signInManager.SignInAsync(user, false);
