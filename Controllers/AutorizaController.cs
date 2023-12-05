@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using ApiUniversidade.DTO;
+using APIuniversidade.DTO;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ApiUniversidade.Controllers
 {
@@ -24,6 +29,39 @@ namespace ApiUniversidade.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+        }
+        private UsuarioToken GeraToken(UsuarioDTO userInfo){
+            
+            var claims = new[]{
+                new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
+            };
+
+            //gerar chave através de um algoritmo de chave simétrica
+            var key = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_configuration["Jwt:key"]));
+
+            //gerar a assinatura digital do token utilizado
+            //a chave privada (key) e o algoritmo HMAC SHA 256
+            var credentials = new SigningCredentials(key,SecurityAlgorithms.HmacSha256);
+
+            //tempo de expiracao do token
+            var expiracao = _configuration["TokenConfiguration:ExpireHours"];
+            var expiration = DateTime.UtcNow.AddHours(double.Parse(expiracao));
+
+            JwtSecurityToken token = new JwtSecurityToken(
+                issuer: _configuration["TokenConfiguration:Issuer"],
+                audience: _configuration["TokenConfiguration:Audience"],
+                claims: claims,
+                expires: expiration,
+                signingCredentials: credentials
+            );
+
+            return new UsuarioToken(){
+                Authenticated = true,
+                Expiration = expiration,
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+                Message = "JWT Ok."
+            };
         }
 
         [HttpGet]
