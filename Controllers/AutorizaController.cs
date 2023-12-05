@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using ApiUniversidade.DTO;
 
 namespace ApiUniversidade.Controllers
 {
@@ -27,5 +28,21 @@ namespace ApiUniversidade.Controllers
                 return "AutorizaController :: Acessado em " + DateTime.Now.ToLongDateString();
             }
 
+        [HttpPost("register")]
+            public async Task<ActionResult> RegisterUser ([FromBody]UsuarioDTO model){
+                var user = new IdentityUser{
+                    UserName = model.Email,
+                    Email = model.Email,
+                    EmailConfirmed =  true
+                };
+
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if(result.Succeeded)
+                    return BadRequest(result.Errors);
+                
+                await _signInManager.SignInAsync(user, false);
+                //return Ok(GerarToken(model));
+                    return Ok();
+            }
     }
 }
