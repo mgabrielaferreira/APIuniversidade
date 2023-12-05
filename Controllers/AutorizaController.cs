@@ -18,5 +18,12 @@ namespace APIuniversidade.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
+
+        [HttpGet]
+            public ActionResult<string> Get(){
+                return "AutorizaController :: Acessado em " + DateTime.Now.ToLongDateString();
+            }
+
     }
 }
