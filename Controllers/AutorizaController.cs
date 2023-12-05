@@ -44,5 +44,19 @@ namespace ApiUniversidade.Controllers
                 //return Ok(GerarToken(model));
                     return Ok();
             }
+
+            [HttpPost("login")]
+                public async Task<ActionResult> Login([FromBody] UsuarioDTO userInfo){
+                    var result = await _signInManager.PasswordSignInAsync(userInfo.Email, userInfo.Password,
+                    isPersistent: false, lockoutOnFailure: false);
+
+                    if(result.Succeeded)
+                        return Ok();
+                    else{
+                        ModelState.AddModelError(String.Empty, "Login Inválido...");
+                        return BadRequest(ModelState);
+                    }
+
+                }
     }
 }
