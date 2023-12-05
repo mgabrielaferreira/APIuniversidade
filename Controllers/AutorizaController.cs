@@ -16,12 +16,15 @@ namespace ApiUniversidade.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AutorizaController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager) 
+        private readonly IConfiguration _configuration;
+
+        public AutorizaController(UserManager<IdentityUser> userManager,
+                SignInManager<IdentityUser> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _configuration = configuration;
         }
-
 
         [HttpGet]
             public ActionResult<string> Get(){
