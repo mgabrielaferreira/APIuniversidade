@@ -6,11 +6,13 @@ using ApiUniversidade.Model;
 using ApiUniversidade.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace ApiUniversidade.Controllers;
-
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class AlunoController : ControllerBase
     {
         private readonly ILogger<AlunoController> _logger;
