@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 namespace ApiUniversidade.Controllers;
     [Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
-    [Route("[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/{v:apiversion}/aluno")]
     public class AlunoController : ControllerBase
     {
         private readonly ILogger<AlunoController> _logger;
@@ -24,6 +25,16 @@ namespace ApiUniversidade.Controllers;
                 _logger = logger;
                 _context = context;
         }
+
+
+        [HttpGet(Name = "GetExemplo")]
+        [Route("exemplo")]
+        public String GetExemplo()
+        {
+            return "Api v1";
+        }
+
+
 
         [HttpGet]
        public ActionResult<IEnumerable<Aluno>> Get()
