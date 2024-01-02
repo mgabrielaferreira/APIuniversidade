@@ -17,7 +17,7 @@ namespace ApiUniversidade.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    
     public class AutorizaController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
