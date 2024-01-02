@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ApiUniversidade.Controllers;
     [Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
-    [Route("controller")]
+    [Route("[controller]")]
     public class CursoController : ControllerBase
     {
         private readonly ILogger<CursoController> _logger;
