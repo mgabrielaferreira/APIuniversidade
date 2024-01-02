@@ -12,8 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ApiUniversidade.Controllers;
     [Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
-     [ApiVersion("1.0")]
-    [Route("api/{v:apiversion}/disciplina")]
+    [Route("[controller]")]
     public class DisciplinaController : ControllerBase
     {
         private readonly ILogger<DisciplinaController> _logger;

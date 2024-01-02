@@ -15,8 +15,7 @@ using System.IdentityModel.Tokens.Jwt;
 namespace ApiUniversidade.Controllers
 {
     [ApiController]
-    [ApiVersion("1.0")]
-    [Route("api/{v:apiversion}/autoriza")]
+    [Route("[controller]")]
     public class AutorizaController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
