@@ -11,11 +11,13 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiUniversidade.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class AutorizaController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
